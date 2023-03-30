@@ -1,0 +1,52 @@
+.App {
+    height: 100%;
+    width: 100%;
+}
+
+.otp-input {
+    width: 23%;
+    height: 35px;
+}
+
+.toast-wrapper {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    z-index: 9999;
+}
+
+.toast-item {
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    // border-radius: 10px;
+    // overflow: hidden;
+    margin-bottom: 20px;
+    // animation: SlideLeft 0.4s;
+    // animation-fill-mode: forwards;
+    // width: 300px;
+}
+
+@keyframes SlideLeft {
+    0% {
+        margin-left: 120%;
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}
+
+@keyframes SlideRight {
+    0% {
+        margin-left: 0;
+    }
+
+    100% {
+        margin-left: 120%;
+    }
+}
+
+.toast-item.exit {
+    animation: SlideRight 0.4s;
+    animation-fill-mode: forwards;
+}

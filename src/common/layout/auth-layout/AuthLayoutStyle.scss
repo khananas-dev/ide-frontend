@@ -1,0 +1,35 @@
+.auth-layout {
+  height: 100%;
+  width: 100%;
+  background-image: url("../../../assets/images/bg3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .layout-container {
+    width: 45%;
+    // height: 60%;
+    min-height: 300px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.35);
+
+    padding: 40px;
+    .application-logo {
+      width: 50%;
+    }
+    .page-outlet {
+      margin: 45px 10px 10px 10px;
+      // padding-top: 35px;
+    }
+    @media (max-width: 1260px) and (min-width: 901px) {
+      width: 65%;
+      // height: 80%;
+    }
+    @media (max-width: 900px) {
+      // height: 90%;
+      width: 80%;
+    }
+  }
+}

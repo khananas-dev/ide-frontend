@@ -1,0 +1,50 @@
+.nav-layout {
+  height: 100%;
+  .MuiToolbar-root {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .left-items {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .navigation-header {
+    color: #fff;
+    display: flex;
+    // width: calc(100% - 10px);
+    padding: 20px 16px 8px 20px;
+    justify-content: space-between;
+    // padding-left: 5px;
+  }
+}
+.product-logo {
+  margin-left: 18px;
+  display: flex;
+  align-items: center;
+  &.smallSize {
+    margin: 0;
+  }
+  .product-icon {
+    margin-right: 5px;
+  }
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    .product-name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .product-caption {
+      font-size: 12px;
+    }
+  }
+}
+.profileToggleBtn {
+  padding: 0 !important;
+}
+
+.application-logo {
+  width: 50%;
+  margin-left: 10px;
+}

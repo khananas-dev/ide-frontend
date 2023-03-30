@@ -1,0 +1,19 @@
+.ide-layout {
+  .flexlayout__layout {
+    top: 30px;
+  }
+  .MuiTreeItem-content {
+    // border-left: 1px solid #e0e0e0;
+  }
+  .MuiTreeItem-root {
+    width: calc(100% - 20px);
+  }
+}
+
+.explorer-section {
+  > .MuiTreeItem-content {
+    background-color: #cbcbcb;
+    border-left: 0;
+    border-radius: 4px;
+  }
+}
