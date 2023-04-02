@@ -5,6 +5,8 @@ import {
   createFileApi,
   createFolderApi,
   getAllWorkSpaceDirectoriesApi,
+  renameFileApi,
+  renameFolderApi,
 } from "../../common/store/features/workspace/workspaceSlice";
 import { useAppDispatch, useAppSelector } from "../../common/store/hooks";
 import ButtonElement from "../button/ButtonElement";
@@ -21,6 +23,8 @@ function CreateFileComponent(props: {
   onClose: any;
   refreshApi: any;
   type: "file" | "folder";
+  data?: any;
+  isRename?: boolean;
 }) {
   // Variables
   const dispatch = useAppDispatch();
@@ -49,16 +53,40 @@ function CreateFileComponent(props: {
   const onHandleSubmit = (e: CreateFileComponentFormModel) => {
     console.log("data", e);
     const { fileName, folderName, path } = e;
-    switch (props?.type) {
-      case "file":
-        createFile({ fileName, path });
-        break;
-      case "folder":
-        createFolder({ folderName, path });
-        break;
+    if (props?.isRename) {
+      switch (props?.type) {
+        case "file":
+          renameFile({
+            oldPath: props?.data?.path,
+            newPath: props?.data?.path?.replace(props?.data?.name, e.fileName),
+          });
 
-      default:
-        break;
+          break;
+        case "folder":
+          renameFolder({
+            oldPath: props?.data?.path,
+            newPath: props?.data?.path?.replace(
+              props?.data?.name,
+              e.folderName
+            ),
+          });
+          break;
+
+        default:
+          break;
+      }
+    } else {
+      switch (props?.type) {
+        case "file":
+          createFile({ fileName, path });
+          break;
+        case "folder":
+          createFolder({ folderName, path });
+          break;
+
+        default:
+          break;
+      }
     }
   };
   // Api Functions
@@ -121,13 +149,60 @@ function CreateFileComponent(props: {
         }
       );
   };
+  const renameFolder = (payload: any) => {
+    dispatch(renameFolderApi(payload))
+      .unwrap()
+      .then(
+        (res) => {
+          if (res.status === "success") {
+            ToastService.success(res.message);
+            props?.onClose();
+            refreshApi();
+            reset();
+          } else {
+            ToastService.error(res?.message);
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  };
+  const renameFile = (payload: any) => {
+    dispatch(renameFileApi(payload))
+      .unwrap()
+      .then(
+        (res) => {
+          if (res.status === "success") {
+            ToastService.success(res.message);
+            props?.onClose();
+            refreshApi();
+            reset();
+          } else {
+            ToastService.error(res?.message);
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  };
   const refreshApi = () => {
     getAllWorkSpaceDirectories();
     props?.refreshApi();
   };
   useEffect(() => {
-    getAllWorkSpaceDirectories();
-  }, []);
+    if (!props?.isRename) getAllWorkSpaceDirectories();
+    if (props?.isRename) {
+      if (props?.type === "file") {
+        setValue("fileName", props?.data?.name, { shouldValidate: true });
+      } else {
+        setValue("folderName", props?.data?.name, { shouldValidate: true });
+      }
+    }
+
+    console.log(props);
+  }, [props]);
 
   return (
     <Box sx={{ padding: "10px 20px" }}>
@@ -175,30 +250,32 @@ function CreateFileComponent(props: {
             )}
           />
         )}
+        {!props?.isRename ? (
+          <Controller
+            name="path"
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: "This is required",
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <SelectInput
+                id="path"
+                formField={field}
+                formFieldState={fieldState}
+                required
+                options={pathList}
+                label="Path"
+                dataKey="name"
+                returnKey="path"
+                isFullWidth
+              />
+            )}
+          />
+        ) : null}
 
-        <Controller
-          name="path"
-          control={control}
-          rules={{
-            required: {
-              value: true,
-              message: "This is required",
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <SelectInput
-              id="path"
-              formField={field}
-              formFieldState={fieldState}
-              required
-              options={pathList}
-              label="Path"
-              dataKey="name"
-              returnKey="path"
-              isFullWidth
-            />
-          )}
-        />
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <ButtonElement
             buttonType="normal"
@@ -214,7 +291,7 @@ function CreateFileComponent(props: {
             role="primary"
             type="submit"
             disabled={!isValid}
-            label="Create"
+            label={props?.isRename ? "Rename" : "Create"}
           />
         </Box>
       </form>

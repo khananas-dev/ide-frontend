@@ -91,7 +91,7 @@ export default function NavigationLayout(props: NavigationLayoutProps) {
     if (currentProduct != "common") {
       document.title = currentProduct.title;
     } else {
-      document.title = "Dataedge";
+      document.title = "CodeWeb";
     }
   }, [location, currentProduct]);
 

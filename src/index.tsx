@@ -11,6 +11,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { StyledToastContainer } from "./components/toast/Toast";
 import apiInterceptorSetup from "./common/helpers/api/api-interceptor";
 import "flexlayout-react/style/light.css";
+//theme
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+//core
+import "primereact/resources/primereact.min.css";
+//icons
+import "primeicons/primeicons.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
