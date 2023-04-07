@@ -33,14 +33,8 @@ function CodeStudio() {
       {
         type: "border",
         location: "bottom",
-        size: 100,
+        size: 200,
         children: [
-          // {
-          //   type: "tab",
-          //   id: "#987197dc-d22b-4d03-84bf-d1b15c6e5618",
-          //   name: "Problems",
-          //   component: "text",
-          // },
           {
             type: "tab",
             id: "#987197dc-d22b-4d03-84bf-terminal",
@@ -217,6 +211,7 @@ function CodeStudio() {
             onFileSelect={openFile}
             directoryData={directoryData}
             menuActions={menuActions}
+            handleFileCreationModalOpen={handleFileCreationModalOpen}
           />
         );
       case "file":
@@ -364,55 +359,12 @@ function CodeStudio() {
 
   return (
     <div className="ide-layout">
-      <Box>
-        <Box>
-          <Button
-            id="basic-button"
-            aria-controls={fileMenuOpen ? "file-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={fileMenuOpen ? "true" : undefined}
-            onClick={handleFileMenuClick}
-            // onClick={removeAllTabs}
-            variant="text"
-            sx={{ fontSize: "14px", padding: "2px 8px" }}
-          >
-            File
-          </Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={fileMenuOpen}
-            onClose={handleFileMenuClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem
-              onClick={() => {
-                handleFileCreationModalOpen("file");
-              }}
-            >
-              New File
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                handleFileCreationModalOpen("folder");
-              }}
-            >
-              Add New Folder to Workspace
-            </MenuItem>
-          </Menu>
-        </Box>
-      </Box>
       <FlexLayout.Layout
         onTabSetPlaceHolder={() => "Open file from solution explorer"}
         model={editorModel}
         factory={factory}
       />
-      <Modal
-        open={fileCreationModalOpen}
-        // onClose={handleFileCreationModalClose}
-      >
+      <Modal open={fileCreationModalOpen}>
         <Box sx={style}>
           <CreateFileComponent
             onClose={handleFileCreationModalClose}

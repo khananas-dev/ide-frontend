@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -206,6 +206,15 @@ function CreateFileComponent(props: {
 
   return (
     <Box sx={{ padding: "10px 20px" }}>
+      <Typography sx={{ fontSize: "20px", fontWeight: 500 }}>
+        {props?.isRename
+          ? props?.type === "file"
+            ? "Rename File"
+            : "Rename Folder"
+          : props?.type === "file"
+          ? "Create a new File"
+          : "Create a new Folder"}
+      </Typography>
       <form onSubmit={handleSubmit(onHandleSubmit)}>
         {props?.type === "file" ? (
           <Controller

@@ -81,6 +81,9 @@ function IdeCodeEditor(props: IdeCodeEditorProps) {
       case "py":
         setLanguage("python");
         break;
+      case "json":
+        setLanguage("json");
+        break;
 
       default:
         break;

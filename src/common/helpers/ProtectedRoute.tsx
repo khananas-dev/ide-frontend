@@ -25,37 +25,33 @@ const ProtectedRoute = (props: NavigationLayoutProps) => {
   const location = useLocation();
   const { token, loading, error } = useAppSelector((state) => state.auth);
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#962bb0",
+        dark: "#671e9a",
+        light: "#f2e5f5",
+        contrastText: "#fff",
+      },
+      error: {
+        main: "#ce0019",
+      },
+      success: {
+        main: "#00823b",
+      },
+      warning: {
+        main: "rgba(245, 164, 0, 1)",
+      },
+    },
+  });
+
   function getNavigationOnLoaded() {
-    // if (themesMap[themeId!]) {
-    //   return (
-    //     <>
-    //       <NavigationLayout {...props} />
-    //       <ModalComponent />
-    //     </>
-    //   );
-    // } else {
-    //   return (
-    //     <div
-    //       style={{
-    //         height: "100%",
-    //         width: "100%",
-    //         display: "flex",
-    //         flexDirection: "column",
-    //         alignItems: "center",
-    //         justifyContent: "center",
-    //       }}
-    //     >
-    //       {/* <LogoSVG style={{ width: "200px" }} /> */}
-    //       company logo
-    //       <br />
-    //       <div>Please wait...</div>
-    //     </div>
-    //   );
-    // }
     return (
       <>
-        <NavigationLayout {...props} />
-        <ModalComponent />
+        <ThemeProvider theme={theme}>
+          <NavigationLayout {...props} />
+          <ModalComponent />
+        </ThemeProvider>
       </>
     );
   }

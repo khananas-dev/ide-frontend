@@ -121,14 +121,8 @@ function FormInput(props: IFormInputProps) {
                 props.type == "password" || props.suffixIcon ? (
                   <InputAdornment position="end">
                     {props.type == "password" ? (
-                      // <IconComponent
-                      //   iconName={isPasswordToggled ? "hide" : "show"}
-                      //   onClick={handlePasswordToggleChange}
-                      //   iconState="button"
-                      //   iconSize={props.size}
-                      // />
                       <IconButton onClick={handlePasswordToggleChange}>
-                        {isPasswordToggled ? (
+                        {!isPasswordToggled ? (
                           <VisibilityOffIcon />
                         ) : (
                           <VisibilityIcon />

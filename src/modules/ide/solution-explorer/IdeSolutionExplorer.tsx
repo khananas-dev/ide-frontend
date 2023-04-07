@@ -14,6 +14,8 @@ import { getAllWorkSpaceDataApi } from "../../../common/store/features/workspace
 import { IconButton, Tooltip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 
 function IdeSolutionExplorer(props: {
   onFileSelect?: any;
@@ -23,6 +25,7 @@ function IdeSolutionExplorer(props: {
     type: "rename" | "delete";
     isFile: boolean;
   }) => void;
+  handleFileCreationModalOpen: any;
 }) {
   const dispatch = useAppDispatch();
 
@@ -43,9 +46,50 @@ function IdeSolutionExplorer(props: {
         className="explorer-section"
         nodeId="2"
         label={
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <FolderIcon sx={{ marginRight: "5px" }} />
-            ~/
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ display: "flex" }}>
+              <FolderIcon sx={{ marginRight: "5px" }} />
+              ~/
+            </Box>
+            <Box>
+              <Tooltip title="Create File">
+                <IconButton
+                  sx={{ padding: "0px", marginRight: "5px" }}
+                  size="small"
+                  aria-label="create file"
+                  disableRipple
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    props?.handleFileCreationModalOpen("file");
+                  }}
+                >
+                  <NoteAddIcon sx={{ fontSize: "20px" }} />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title="Create Folder">
+                <IconButton
+                  sx={{ padding: "0px" }}
+                  size="small"
+                  aria-label="create folder"
+                  disableRipple
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    props?.handleFileCreationModalOpen("folder");
+                  }}
+                >
+                  <CreateNewFolderIcon sx={{ fontSize: "20px" }} />
+                </IconButton>
+              </Tooltip>
+            </Box>
           </Box>
         }
       >
@@ -176,7 +220,7 @@ function IdeSolutionExplorer(props: {
                       disableRipple
                       onClick={(e) => {
                         e.preventDefault();
-                        console.log(data, "delete");
+                        e.stopPropagation();
                         props?.menuActions({
                           data: data,
                           type: "delete",
@@ -196,14 +240,6 @@ function IdeSolutionExplorer(props: {
     }
   };
   const handleFileSelection = (event: any) => {
-    // console.log(event, "event");
-    // if (event == "210" || event == "221") {
-    //   props?.onFileSelect &&
-    //     props.onFileSelect(event == "210" ? "file1.js" : "file2.css");
-    // } else if (["10", "11", "12", "13", "321", "322"].includes(event)) {
-    //   alert("File Not Supported Yet");
-    // }
-    console.log(event);
     props?.onFileSelect(event);
   };
 
@@ -211,11 +247,14 @@ function IdeSolutionExplorer(props: {
     <StyledTreeViewPanel
       defaultCollapseIcon={<ArrowDropDownIcon />}
       defaultExpandIcon={<ArrowRightIcon />}
-      // defaultEndIcon={<DescriptionIcon />}
       onNodeSelect={(event: any, ids: any) => handleFileSelection(ids)}
       defaultExpanded={["1", "10", "2", "3"]}
       onMouseEnter={handleNodeMouseLeave}
       onMouseLeave={handleNodeMouseLeave}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+      }}
     >
       {props?.directoryData && DirectoryList(props?.directoryData)}
     </StyledTreeViewPanel>

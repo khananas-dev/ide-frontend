@@ -75,39 +75,6 @@ export default function SignUP() {
           console.error("Error Log in", error);
         }
       );
-    // dispatch(loginUserAPI(e))
-    //   .unwrap()
-    //   .then(
-    //     (value) => {
-    //       console.log("Logged In");
-    //       // Promise.all([
-    //       //   dispatch(getUserProfileDetailsAPI())
-    //       //     .unwrap()
-    //       //     .then((value) => {
-    //       //       dispatch(
-    //       //         systemSlice.actions.setCurrentTheme(value.data.colourThemeId)
-    //       //       );
-    //       //     }),
-    //       //   dispatch(getUserNavDetailsAPI()).unwrap(),
-    //       //   dispatch(findAllMasterApi({ master: "product" }))
-    //       //     .unwrap()
-    //       //     .then((value) => {
-    //       //       dispatch(systemSlice.actions.setProductsMaster(value.data));
-    //       //     }),
-    //       // ]).then(
-    //       //   (value) => {
-    //       //     dispatch(loginSlice.actions.completeLoggedIn());
-    //       //     navigate("/");
-    //       //   },
-    //       //   (error) => {
-    //       //     logger.error("Error User", error);
-    //       //   }
-    //       // );
-    //     },
-    //     (error) => {
-    //       console.error("Error Log in", error);
-    //     }
-    //   );
   };
 
   return (
@@ -161,46 +128,56 @@ export default function SignUP() {
             />
           </Grid>
         </Grid>
-        <Controller
-          name="username"
-          control={control}
-          rules={{
-            required: {
-              value: true,
-              message: "This is required",
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <FormInput
-              id="username"
-              isFullWidth={true}
-              label={"Username"}
-              formField={field}
-              formFieldState={fieldState}
-              required={true}
+        <Grid container spacing={2}>
+          <Grid item md={6}>
+            <Controller
+              name="username"
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "This is required",
+                },
+              }}
+              render={({ field, fieldState }) => (
+                <FormInput
+                  id="username"
+                  isFullWidth={true}
+                  label={"Username"}
+                  formField={field}
+                  formFieldState={fieldState}
+                  required={true}
+                />
+              )}
             />
-          )}
-        />
-        <Controller
-          name="email"
-          control={control}
-          rules={{
-            required: {
-              value: true,
-              message: "This is required",
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <FormInput
-              id="email"
-              isFullWidth={true}
-              label={"Email"}
-              formField={field}
-              formFieldState={fieldState}
-              required={true}
+          </Grid>
+          <Grid item md={6}>
+            <Controller
+              name="email"
+              control={control}
+              rules={{
+                pattern: {
+                  value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                  message: "Invalid email",
+                },
+                required: {
+                  value: true,
+                  message: "This is required",
+                },
+              }}
+              render={({ field, fieldState }) => (
+                <FormInput
+                  id="email"
+                  isFullWidth={true}
+                  label={"Email"}
+                  formField={field}
+                  formFieldState={fieldState}
+                  required={true}
+                />
+              )}
             />
-          )}
-        />
+          </Grid>
+        </Grid>
         <Controller
           name="password"
           control={control}

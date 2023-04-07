@@ -18,7 +18,7 @@ import storage from "redux-persist/lib/storage";
 import loginSlice from "./features/auth/loginSlice";
 
 const persistConfig = {
-  key: "root",
+  key: "code-web-root",
   storage,
 };
 

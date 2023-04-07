@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.scss";
-import { Box, CssBaseline } from "@mui/material";
+import { Box, CssBaseline, createTheme } from "@mui/material";
 import AppRouter from "./AppRouter";
 
 function App() {

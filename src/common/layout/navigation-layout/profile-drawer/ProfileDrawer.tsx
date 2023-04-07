@@ -92,7 +92,7 @@ function ProfileDrawer(props: ProfileDrawerProps) {
           />
         </div>
         <div className="user-log">
-          <div className="label-box">
+          {/* <div className="label-box">
             <FormInput
               id="last-modified-on"
               label="Profile Modified On"
@@ -101,7 +101,7 @@ function ProfileDrawer(props: ProfileDrawerProps) {
                 "DD MMM YYYY, hh:mm A"
               )}
             />
-          </div>
+          </div> */}
           <div className="label-box">
             <FormInput
               id="last-logged-in"
